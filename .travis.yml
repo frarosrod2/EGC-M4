@@ -1,0 +1,21 @@
+language: python 
+python: 
+- "2"
+- "3.7"
+env: 
+- DJANGO=2.0 DB=postgres
+install: 
+- pip install -r requirements.txt 
+branches:
+only:
+   - master
+script: 
+- python manage.py test
+services:
+  - postgresql
+before_script:
+ - psql -c "create user decide with password 'decide'" 
+ - psql -c "create database decide owner decide"
+ - psql -U postgres -c "ALTER USER decide CREATEDB"  
+ - cd decide
+ - python manage.py migrate
