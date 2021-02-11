@@ -19,3 +19,8 @@ before_script:
  - psql -U postgres -c "ALTER USER decide CREATEDB"  
  - cd decide
  - python manage.py migrate
+ deploy:
+  provider: heroku
+  app: examen-19
+  strategy: git
+  api_key: $HEROKU_AUTH_TOKEN
